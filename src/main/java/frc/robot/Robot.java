@@ -34,8 +34,8 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_climberL;
   private CANSparkMax m_climberR;
   private TalonFX m_shooter;
-  private Servo latcherL;
-  private Servo latcherR;
+  // private Servo latcherL;
+  // private Servo latcherR;
 
   @Override
   public void robotInit() {
@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
     m_magazine = new CANSparkMax(magazineID, MotorType.kBrushless);
     m_magazine.restoreFactoryDefaults();
 
-    m_climberL = new CANSparkMax(climberLID, MotorType.kBrushed);
+    m_climberL = new CANSparkMax(climberLID, MotorType.kBrushless);
     m_climberL.restoreFactoryDefaults();
     m_climberR = new CANSparkMax(climberRID, MotorType.kBrushless);
     m_climberR.restoreFactoryDefaults();
@@ -52,8 +52,8 @@ public class Robot extends TimedRobot {
     m_shooter = new TalonFX(shooterID);
     m_shooter.configFactoryDefault();
 
-    latcherL = new Servo(0);
-    latcherR = new Servo(0); 
+    // latcherL = new Servo(0);
+    // latcherR = new Servo(0); 
 
     m_intake.setIdleMode(IdleMode.kCoast);
     m_magazine.setIdleMode(IdleMode.kCoast);
