@@ -74,8 +74,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("shooter", 0.25);
     SmartDashboard.putNumber("climberL", 0.25);
     SmartDashboard.putNumber("climberR", 0.25);
-
-
   }
 
   @Override
