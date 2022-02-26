@@ -8,6 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,11 +36,16 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_climberL;
   private CANSparkMax m_climberR;
   private TalonFX m_shooter;
+  private PowerDistribution PDH;
   // private Servo latcherL;
   // private Servo latcherR;
 
   @Override
   public void robotInit() {
+    
+    PDH = new PowerDistribution(1, ModuleType.kRev);
+    PDH.clearStickyFaults();
+
     m_intake = new CANSparkMax(intakeID, MotorType.kBrushed);
     m_intake.restoreFactoryDefaults();
     m_magazine = new CANSparkMax(magazineID, MotorType.kBrushless);
