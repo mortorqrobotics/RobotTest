@@ -64,8 +64,8 @@ public class Robot extends TimedRobot {
 
     m_intake.setIdleMode(IdleMode.kCoast);
     m_magazine.setIdleMode(IdleMode.kCoast);
-    m_climberL.setIdleMode(IdleMode.kCoast);
-    m_climberR.setIdleMode(IdleMode.kCoast);
+    m_climberL.setIdleMode(IdleMode.kBrake);
+    m_climberR.setIdleMode(IdleMode.kBrake);
 
     m_stick = new XboxController(0);
 
