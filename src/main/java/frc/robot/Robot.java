@@ -27,8 +27,8 @@ public class Robot extends TimedRobot {
   private static final int intakeID = 25;
   private static final int magazineID = 26;
   private static final int shooterID = 27;
-  private static final int climberLID = 31;
-  private static final int climberRID = 33;
+  private static final int climberLID = 33;
+  private static final int climberRID = 31;
   private CANSparkMax m_intake;
   private CANSparkMax m_magazine;
   private CANSparkMax m_climberL;
