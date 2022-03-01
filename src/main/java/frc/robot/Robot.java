@@ -29,8 +29,8 @@ public class Robot extends TimedRobot {
   private static final int intakeID = 25;
   private static final int magazineID = 26;
   private static final int shooterID = 27;
-  private static final int climberLID = 33;
-  private static final int climberRID = 31;
+  private static final int climberLID = 32;
+  private static final int climberRID = 34;
   private CANSparkMax m_intake;
   private CANSparkMax m_magazine;
   private CANSparkMax m_climberL;
@@ -43,8 +43,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     
-    PDH = new PowerDistribution(1, ModuleType.kRev);
-    PDH.clearStickyFaults();
+    // PDH = new PowerDistribution(1, ModuleType.kRev);
+    // PDH.clearStickyFaults();
 
     m_intake = new CANSparkMax(intakeID, MotorType.kBrushed);
     m_intake.restoreFactoryDefaults();
