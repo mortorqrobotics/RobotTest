@@ -8,7 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.Servo;
+// import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,14 +28,16 @@ public class Robot extends TimedRobot {
   private static final int magazineID = 26;
   private static final int shooterID = 27;
   private static final int climberLID = 31;
+  private static final int climberVLID = 32;
   private static final int climberRID = 33;
+  private static final int climberVRID = 34;
   private CANSparkMax m_intake;
   private CANSparkMax m_magazine;
   private CANSparkMax m_climberL;
   private CANSparkMax m_climberR;
+  private CANSparkMax m_climberVL;
+  private CANSparkMax m_climberVR;
   private TalonFX m_shooter;
-  // private Servo latcherL;
-  // private Servo latcherR;
 
   @Override
   public void robotInit() {
@@ -49,16 +51,20 @@ public class Robot extends TimedRobot {
     m_climberR = new CANSparkMax(climberRID, MotorType.kBrushless);
     m_climberR.restoreFactoryDefaults();
 
+    m_climberVL = new CANSparkMax(climberVLID, MotorType.kBrushless);
+    m_climberVL.restoreFactoryDefaults();
+    m_climberVR = new CANSparkMax(climberVRID, MotorType.kBrushless);
+    m_climberVR.restoreFactoryDefaults();
+
     m_shooter = new TalonFX(shooterID);
     m_shooter.configFactoryDefault();
 
-    // latcherL = new Servo(0);
-    // latcherR = new Servo(0); 
-
     m_intake.setIdleMode(IdleMode.kCoast);
     m_magazine.setIdleMode(IdleMode.kCoast);
-    m_climberL.setIdleMode(IdleMode.kCoast);
-    m_climberR.setIdleMode(IdleMode.kCoast);
+    m_climberL.setIdleMode(IdleMode.kBrake);
+    m_climberR.setIdleMode(IdleMode.kBrake);
+    m_climberVL.setIdleMode(IdleMode.kBrake);
+    m_climberVR.setIdleMode(IdleMode.kBrake);
 
     m_stick = new XboxController(0);
 
@@ -66,8 +72,9 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("magazine", 0.25);
     SmartDashboard.putNumber("shooter", 0.25);
     SmartDashboard.putNumber("climberL", 0.25);
-    SmartDashboard.putNumber("climberR", 0.25);
-
+    SmartDashboard.putNumber("climberVL", 0.25);
+    SmartDashboard.putNumber("climberR", -0.25);
+    SmartDashboard.putNumber("climberVR", -0.25);
 
   }
 
@@ -77,7 +84,9 @@ public class Robot extends TimedRobot {
     double magazine = SmartDashboard.getNumber("magazine", 0.25);
     double shooter = SmartDashboard.getNumber("shooter", 0.25);
     double climberL = SmartDashboard.getNumber("climberL", 0.25);
-    double climberR = SmartDashboard.getNumber("climberR", 0.25);
+    double climberVL = SmartDashboard.getNumber("climberVL", 0.25);
+    double climberR = SmartDashboard.getNumber("climberR", -0.25);
+    double climberVR = SmartDashboard.getNumber("climberVR", -0.25);
 
     if(m_stick.getAButton()) {
       m_intake.set(intake);
@@ -104,10 +113,22 @@ public class Robot extends TimedRobot {
       m_climberL.set(0);
     }
 
+    if(m_stick.getLeftTriggerAxis() >= 0.5){
+      m_climberVL.set(climberVL);
+    } else {
+      m_climberVL.set(0);
+    }
+
     if(m_stick.getRightBumper()){
       m_climberR.set(climberR);
     } else {
       m_climberR.set(0);
+    }
+
+    if(m_stick.getRightTriggerAxis() >= 0.5){
+      m_climberVR.set(climberVR);
+    } else {
+      m_climberVR.set(0);
     }
 
     if(m_stick.getXButton()) {
