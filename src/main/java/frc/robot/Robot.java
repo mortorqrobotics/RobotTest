@@ -8,7 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-// import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -27,10 +29,8 @@ public class Robot extends TimedRobot {
   private static final int intakeID = 25;
   private static final int magazineID = 26;
   private static final int shooterID = 27;
-  private static final int climberLID = 31;
-  private static final int climberVLID = 32;
-  private static final int climberRID = 33;
-  private static final int climberVRID = 34;
+  private static final int climberLID = 32;
+  private static final int climberRID = 34;
   private CANSparkMax m_intake;
   private CANSparkMax m_magazine;
   private CANSparkMax m_climberL;
@@ -38,9 +38,14 @@ public class Robot extends TimedRobot {
   private CANSparkMax m_climberVL;
   private CANSparkMax m_climberVR;
   private TalonFX m_shooter;
+  private PowerDistribution PDH;
 
   @Override
   public void robotInit() {
+    
+    // PDH = new PowerDistribution(1, ModuleType.kRev);
+    // PDH.clearStickyFaults();
+
     m_intake = new CANSparkMax(intakeID, MotorType.kBrushed);
     m_intake.restoreFactoryDefaults();
     m_magazine = new CANSparkMax(magazineID, MotorType.kBrushless);
@@ -63,8 +68,6 @@ public class Robot extends TimedRobot {
     m_magazine.setIdleMode(IdleMode.kCoast);
     m_climberL.setIdleMode(IdleMode.kBrake);
     m_climberR.setIdleMode(IdleMode.kBrake);
-    m_climberVL.setIdleMode(IdleMode.kBrake);
-    m_climberVR.setIdleMode(IdleMode.kBrake);
 
     m_stick = new XboxController(0);
 
@@ -72,10 +75,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("magazine", 0.25);
     SmartDashboard.putNumber("shooter", 0.25);
     SmartDashboard.putNumber("climberL", 0.25);
-    SmartDashboard.putNumber("climberVL", 0.25);
-    SmartDashboard.putNumber("climberR", -0.25);
-    SmartDashboard.putNumber("climberVR", -0.25);
-
+    SmartDashboard.putNumber("climberR", 0.25);
   }
 
   @Override
